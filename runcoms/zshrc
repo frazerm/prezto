@@ -11,3 +11,41 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export NVM_DIR="/home/frazer/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+
+export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
+
+# Disable autocorrect
+unsetopt correct
+unsetopt correct_all
+
+# Add TheFuck alias
+eval "$(thefuck --alias)"
+
+# aliases for generating random streams
+alias spew='cat /dev/urandom | env LC_CTYPE=C tr -dc '\''[:print:]'\'' | env LC_CTYPE=C tr -d '\''['\''\'\'''\''"`$\\ ]'\'''
+alias spewan='cat /dev/urandom | env LC_CTYPE=C tr -dc '\''[:alnum:]'\'''
+alias spewlan='cat /dev/urandom | env LC_CTYPE=C tr -dc '\''a-z0-9'\'''
+alias genid='spewlan | fold -w 24 | head -n1 | tr -d '\''\n'\'' | pbcopy'
+alias genpass='spew | fold -w 64 | head -n1 | tr -d '\''\n'\'' | pbcopy'
+
+alias ls='ls -lhG --color'
+alias lsl='command ls -G --color'
+
+alias gd='git diff'
+alias gdt='git difftool'
+alias gST='git status'
+
+alias rm='command rm'
+
+expand-or-complete-with-dots() {      # This bunch of code displays red dots when autocompleting
+  echo -n "\e[31m......\e[0m"         # a command with the tab key, "Oh-my-zsh"-style.
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
