@@ -16,6 +16,8 @@ export EDITOR=/usr/bin/vi
 export VISUAL=/usr/bin/vi
 
 export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
+export PATH="/Users/frazer/.llvm/bin:$PATH"
+export LLVM_DIR=/tmp/$USER/build
 
 # Disable autocorrect
 unsetopt correct
@@ -39,5 +41,10 @@ alias lsl='command ls -G'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gST='git status'
+alias gst='git status'
+
+function gcmp {
+  gcm "$@" && git push
+}
 
 alias rm='command rm'
