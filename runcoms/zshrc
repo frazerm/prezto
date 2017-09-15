@@ -1,4 +1,4 @@
-#
+
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -21,6 +21,8 @@ export PATH="/usr/local/bin:/usr/local/sbin:~/bin:$PATH"
 export PATH="/Users/frazer/.llvm/bin:$PATH"
 export LLVM_DIR=/tmp/$USER/build
 
+export JAVA_HOME=$(/usr/libexec/java_home)
+
 # Disable autocorrect
 unsetopt correct
 unsetopt correct_all
@@ -35,24 +37,28 @@ alias spewlan='cat /dev/urandom | env LC_CTYPE=C tr -dc '\''a-z0-9'\'''
 alias genid='spewlan | fold -w 24 | head -n1 | tr -d '\''\n'\'' | pbcopy'
 alias genpass='spew | fold -w 64 | head -n1 | tr -d '\''\n'\'' | pbcopy'
 
-alias ls='ls -lhG --color'
-alias lsl='command ls -G --color'
+alias ls='ls -lhG '
+alias lsl='command ls -G '
 
 alias gd='git diff'
 alias gdt='git difftool'
+alias gdh='git diff HEAD~ HEAD'
 alias gST='git status'
 alias gst='git status'
+alias gcof="gco --"
 
 function gcmp {
   gcm "$@" && git push
 }
 
+function gmo {
+  git fetch && git merge origin/master
+}
+function gmop {
+  gmo && gti push
+}
+
 alias rm='command rm'
 
-expand-or-complete-with-dots() {      # This bunch of code displays red dots when autocompleting
-  echo -n "\e[31m......\e[0m"         # a command with the tab key, "Oh-my-zsh"-style.
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+export PATH=$PATH:~/code/SDK/air_current/bin:~/code/SDK/android-current/ndk-bundle:~/code/SDK/android-current/platform-tools:/Users/frazer/.miniconda/bin
+export ANDROID_HOME=~/Library/Android/sdk
